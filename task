@@ -1,0 +1,50 @@
+DbContext Class:
+===============
+public class BoatContext : DbContext
+{
+  
+    
+   public DbSet<Boat> Boats { get; set; }
+   public DbSet<Customer> Customers { get; set; }
+   public DbSet<BoatCustomer> BoatCustomers { get; set; }
+} 
+
+
+Model Class:
+============
+Public class BoatCustomer
+{
+Public int Id {get; set;}
+[Foreing Key("Boat")]
+Public int BoatId {get; sety;}
+Public int CusttomerId {get; set;}
+Public int Hours {get; set;}
+
+}
+
+Controller Class:
+================
+
+[Httppost]
+ 
+Public jsonresult saveboatdetails(Boat boat) 
+{
+ using(var db = new BoatContext())
+{
+    db.BoatTable.Add(boat);
+        db.SaveChanges();
+
+ return Json({id=boat.id});
+
+  //return db.Users.ToList(); // or some other simple query
+}
+[Httppost]
+Public jsonresult Boatwithcustomer(int boatid, int customerid, int numhours){
+
+ using(var db = new BoatCustomer())
+{
+    db.BoatCustomerTable.Add(boatid,customerid,numhours);
+    db.SaveChanges();
+
+return json(message ="success")
+}
